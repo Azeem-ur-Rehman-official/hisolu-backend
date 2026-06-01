@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import router from "./routes/contactRoute";
-import serverless from "serverless-http";
+
 
 dotenv.config();
 const app = express();
@@ -15,11 +15,13 @@ app.use(
 // database connection
 app.use(router);
 
-const port = process.env.PORT || 5000;
-// to run surver
+// Export the app for Vercel serverless
+export default app;
 
-// app.listen(port, async () => {
-//   console.log(`APP IS RUNNING ON PORT ${port}`);
- 
-// });
-export default serverless(app);
+// Only listen when running locally (not on Vercel)
+if (!process.env.VERCEL) {
+  const port = process.env.PORT || 5000;
+  app.listen(port, () => {
+    console.log(`APP IS RUNNING ON PORT ${port}`);
+  });
+}
