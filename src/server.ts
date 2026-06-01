@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import router from "./routes/contactRoute";
-
+import serverless from "serverless-http";
 
 dotenv.config();
 const app = express();
@@ -18,7 +18,8 @@ app.use(router);
 const port = process.env.PORT || 5000;
 // to run surver
 
-app.listen(port, async () => {
-  console.log(`APP IS RUNNING ON PORT ${port}`);
+// app.listen(port, async () => {
+//   console.log(`APP IS RUNNING ON PORT ${port}`);
  
-});
+// });
+export default serverless(app);
