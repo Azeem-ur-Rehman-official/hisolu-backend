@@ -3,7 +3,7 @@ import sql from "../config/dbConnection";
 
 // get all data of contact
 export const getAllData = async () => {
-  const res = await sql`SELECT * FROM contact_us`;
+  const res = await sql`SELECT * FROM contact_us ORDER BY created_at DESC`;
   return res;
 };
 
@@ -38,5 +38,11 @@ export const insertContact = async (contact: ContactInput) => {
     )
     RETURNING *
   `;
+  return res;
+};
+
+// deletedata of contact
+export const deleteData = async (id:number) => {
+  const res = await sql`DELETE FROM contact_us WHERE id = ${id} RETURNING *`;
   return res;
 };
